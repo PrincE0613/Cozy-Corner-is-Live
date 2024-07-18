@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Property Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .heading {
+            text-align: center;
+        }
+        .property-section {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="heading">Sell Your Property</h1>
+    <form id="propertyForm" onsubmit="return validateForm()">
+        <label for="propertyType">Property Type:</label>
+        <select id="propertyType" name="propertyType" onchange="showPropertyForm()" required>
+            <option value="">Select Property Type</option>
+            <option value="apartment">Apartment</option>
+            <option value="house">House</option>
+        </select>
+
+        <!-- Common Details -->
+        <label for="propertyName">Property Name:</label>
+        <input type="text" id="propertyName" name="propertyName" required>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required>
+
+        <!-- Apartment Details -->
+        <div id="apartmentSection" class="property-section">
+            <label for="bedrooms">Number of Bedrooms:</label>
+            <input type="number" id="bedrooms" name="bedrooms" min="1" required>
+
+            <label for="bathrooms">Number of Bathrooms:</label>
+            <input type="number" id="bathrooms" name="bathrooms" min="1" required>
+
+            <label for="floorLevel">Floor Level:</label>
+            <input type="text" id="floorLevel" name="floorLevel">
+
+            <!-- Amenities -->
+            <label>Amenities:</label>
+            <div style="display: inline-block;">
+                <input type="checkbox" id="parking" name="amenities" value="Parking">Parking<br>
+                <input type="checkbox" id="gym" name="amenities" value="Gym">Gym<br>
+                <input type="checkbox" id="pool" name="amenities" value="Pool">Pool<br>
+            </div>
+
+            <label for="otherAmenities" style="font-size:medium;">Other Amenities:</label>
+            <input type="text" id="otherAmenities" name="otherAmenities" style="box-sizing:content-box;">
+        </div>
+
+        <!-- House Details -->
+        <div id="houseSection" class="property-section">
+            <label for="landArea">Land Area (sq ft):</label>
+            <input type="number" id="landArea" name="landArea" required>
+
+            <label for="buildYear">Year Built:</label>
+            <input type="number" id="buildYear" name="buildYear" required>
+
+            <label for="garage">Garage:</label>
+            <input type="checkbox" id="garage" name="garage" value="Garage">Garage<br>
+
+            <label for="garden">Garden:</label>
+            <input type="checkbox" id="garden" name="garden" value="Garden">Garden<br>
+        </div>
+
+        <!-- Common Fields for both -->
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" min="0" required>
+
+        <label for="propertyTax">Property Tax Cost:</label>
+        <input type="number" id="propertyTax" name="propertyTax" min="0">
+<!-- 
+        <label for="maintenanceFee">Monthly Maintenance Fee:</label>
+        <input type="number" id="maintenanceFee" name="maintenanceFee" min="0"> -->
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function showPropertyForm() {
+            const propertyType = document.getElementById('propertyType').value;
+            const apartmentSection = document.getElementById('apartmentSection');
+            const houseSection = document.getElementById('houseSection');
+            
+            apartmentSection.style.display = 'none';
+            houseSection.style.display = 'none';
+
+            if (propertyType === 'apartment') {
+                apartmentSection.style.display = 'block';
+            } else if (propertyType === 'house') {
+                houseSection.style.display = 'block';
+            }
+        }
+
+        function validateForm() {
+            const propertyName = document.getElementById('propertyName').value;
+            const address = document.getElementById('address').value;
+
+            if (propertyName.trim() === '' || address.trim() === '') {
+                alert('Property name and address are required.');
+                return false;
+            }
+
+            return true; // Form is valid
+        }
+    </script>
+</body>
+</html>
